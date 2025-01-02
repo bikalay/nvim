@@ -1,0 +1,6 @@
+require("common.setup-plugins")
+require("common.core.options")
+require("common.core.keymaps")
+require("common.core.colorscheme")
+require("common.plugins.treesitter")
+require("common.plugins.undotree")

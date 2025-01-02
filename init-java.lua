@@ -1,0 +1,13 @@
+require("java.setup-plugins")
+require("common.core.options")
+require("java.core.options")
+require("common.core.keymaps")
+require("java.core.keymaps")
+require("common.core.colorscheme")
+require("common.plugins.undotree")
+require("java.plugins.treesitter")
+require("java.plugins.lspconfig")
+require("java.plugins.ctag")
+require("java.plugins.coverage")
+require("java.plugins.autopairs")
+

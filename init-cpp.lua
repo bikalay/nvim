@@ -1,0 +1,13 @@
+require("cpp.setup-plugins")
+require("common.core.options")
+require("cpp.core.options")
+require("common.core.keymaps")
+require("cpp.core.keymaps")
+require("common.core.colorscheme")
+require("common.plugins.undotree")
+require("cpp.plugins.treesitter")
+require("cpp.plugins.lspconfig")
+require("cpp.plugins.ctag")
+require("cpp.plugins.coverage")
+require("cpp.plugins.autopairs")
+

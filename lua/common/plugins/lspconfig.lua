@@ -9,7 +9,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -42,64 +41,71 @@ local lsp_flags = {
 }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
+vim.lsp.protocol.make_client_capabilities()
 )
 
 require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = { "pyright" }
-})
 
-require('lspconfig')['pyright'].setup {
-  on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities
-}
+function setup(server_list)
+  require("mason-lspconfig").setup(server_list)
 
-local luasnip = require 'luasnip'
+  for _, server in ipairs(server_list) do
+    if nvim_lsp[server] then
+      nvim_lsp[server].setup({
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities
+      })
 
-local cmp = require 'cmp'
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    else
+      print("Warning: LSP server '" .. server .. "' is not supported.")
+    end
+  end
+
+  local luasnip = require 'luasnip'
+  local cmp = require 'cmp'
+  cmp.setup {
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
     },
-    -- ['<Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif luasnip.expand_or_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif luasnip.jumpable(-1) then
-    --     luasnip.jump(-1)
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-  }),
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'path' },
-    { name = 'tags' },
-    { name = 'ctags' },
-    { name= 'buffer' }
-  },
-}
+    mapping = cmp.mapping.preset.insert({
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<CR>'] = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      },
+      -- ['<Tab>'] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_next_item()
+        --   elseif luasnip.expand_or_jumpable() then
+        --     luasnip.expand_or_jump()
+        --   else
+        --     fallback()
+        --   end
+        -- end, { 'i', 's' }),
+        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_prev_item()
+          --   elseif luasnip.jumpable(-1) then
+          --     luasnip.jump(-1)
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
+        }),
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+          { name = 'path' },
+          { name = 'tags' },
+          { name = 'ctags' },
+          { name= 'buffer' }
+        },
+      }
+    end
 
-
+    return setup

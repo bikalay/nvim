@@ -1,12 +1,38 @@
-require("web.setup-plugins")
+require("web.plugins.init")
 require("common.core.options")
 require("web.core.options")
 require("common.core.keymaps")
 require("web.core.keymaps")
 require("common.core.colorscheme")
 require("common.plugins.undotree")
-require("web.plugins.treesitter")
-require("web.plugins.lspconfig")
+require("common.plugins.treesitter")({
+  "html",
+  "css",
+  "scss",
+  "javascript",
+  "typescript",
+  "json",
+  "yaml",
+  "xml",
+  "csv",
+  "dockerfile",
+  "editorconfig",
+  "nginx",
+  "graphql",
+})
+require("common.plugins.lspconfig")({
+  "yamlls",
+  "jsonls",
+  "cssls",
+  "html",
+  "ts_ls",
+  "eslint",
+  "dockerls",
+  "docker_compose_language_service",
+  "gitlab_ci_ls",
+  "graphql",
+})
+require("common.plugins.telescope")
+require("common.plugins.trouble")
 require("web.plugins.ctag")
-require("web.plugins.coverage")
-require("web.plugins.autopairs")
+require("common.plugins.autopairs")

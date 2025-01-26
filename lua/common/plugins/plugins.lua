@@ -1,69 +1,77 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({
+local plugins =  {
+  -- Theme
   {
-    'ellisonleao/gruvbox.nvim',
+    "ellisonleao/gruvbox.nvim",
     event = "VimEnter",
   },
+  -- Synax Highlighting
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     event = "BufRead",
   },
+  -- Editorconfig
   {
-    'editorconfig/editorconfig-vim',
+    "editorconfig/editorconfig-vim",
     event = "BufRead",
   },
+  -- Undo Tree
   {
-    'mbbill/undotree',
+    "mbbill/undotree",
     event = "BufRead",
   },
+  -- Autopairs
   {
-    'windwp/nvim-autopairs',
+    "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup({})
     end,
     event = "BufRead",
   },
+  -- Comments
   {
-    'tpope/vim-commentary',
+    "tpope/vim-commentary",
     event = "BufRead",
   },
+  -- Vim Surround
   {
-    'tpope/vim-surround',
+    "tpope/vim-surround",
     event = "BufRead",
   },
+  -- Vim Plenary
   {
-    'nvim-lua/plenary.nvim',
+    "nvim-lua/plenary.nvim",
     event = "BufRead",
   },
+  -- Telescope
   {
-    'nvim-telescope/telescope.nvim',
+    "nvim-telescope/telescope.nvim",
     event = "VimEnter",
   },
   {
-    'nvim-telescope/telescope-fzf-native.nvim',
+    "nvim-telescope/telescope-fzf-native.nvim",
     run = "make",
     event = "VimEnter",
   },
+  -- Maximize
   {
     'declancm/maximize.nvim',
+    config = function()
+      require('maximize').setup()
+    end,
     event = "VimEnter",
   },
+  -- copilot
+  {
+    "github/copilot.vim",
+    event = "BufRead",
+  },
+  --mason
   {
     'williamboman/mason.nvim',
     event = "VimEnter",
   },
+  --lspconfig
   {
     'williamboman/mason-lspconfig.nvim',
     event = "BufRead",
@@ -109,27 +117,8 @@ require("lazy").setup({
     event = "BufRead",
   },
   {
-    'tpope/vim-obsession',
-    event = "BufRead",
-  },
-  {
-    'github/copilot.vim',
-    event = "BufRead",
-  },
-  {
-    "andythigpen/nvim-coverage",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("coverage")
-    end,
-    event = "BufRead",
-  },
-  {
-    "psf/black",
-    event = "BufRead",
-  },
-  {
     "nvim-tree/nvim-web-devicons",
+    event = "VimEnter",
   },
   {
     "folke/trouble.nvim",
@@ -137,11 +126,12 @@ require("lazy").setup({
     config = function()
       require("trouble").setup({})
     end,
+    event = "BufRead",
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-  },
-  {
-    "jamestthompson3/nvim-remote-containers",
+    "vim-autoformat/vim-autoformat",
+    event = "BufRead",
   }
-})
+}
+
+return plugins

@@ -1,25 +1,22 @@
-require("cpp.plugins.init")
+require("dart.plugins.init")
 require("common.core.options")
-require("cpp.core.options")
+require("dart.core.options")
 require("common.core.keymaps")
-require("cpp.core.keymaps")
+require("dart.core.keymaps")
 require("common.core.colorscheme")
 require("common.plugins.undotree")
 require("common.plugins.treesitter")({
-   "cpp",
-   "cmake",
-   "qmljs",
-   "qmldir",
-   "csv"
+  "dart",
+  "json",
+  "csv",
+  "yaml"
 })
 require("common.plugins.lspconfig")({
-   "clangd",
-   "cmake",
-   "jsonls",
-   "dockerls",
-   "docker_compose_language_service",
+  "yamlls",
+  "jsonls",
+  "dartls",
 })
-require("common.plugins.autopairs")
 require("common.plugins.telescope")
 require("common.plugins.trouble")
+require("common.plugins.autopairs")
 

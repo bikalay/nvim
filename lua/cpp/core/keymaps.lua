@@ -1,4 +1,4 @@
 -- PLUGINS
 
--- Black
-vim.keymap.set("n", "<C-l>", ":Black<CR>", {noremap = true})
+-- Autoformat 
+vim.keymap.set("n", "<C-l>", ":Autoformat<CR>", {noremap = true})

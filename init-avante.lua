@@ -1,0 +1,19 @@
+require("avante.plugins.init")
+require("common.core.options")
+require("avante.core.options")
+require("common.core.keymaps")
+require("avante.core.keymaps")
+require("common.plugins.undotree")
+require("common.plugins.treesitter")({
+  "json",
+  "csv",
+  "yaml"
+})
+require("common.plugins.lspconfig")({
+  "yamlls",
+  "jsonls",
+})
+require("common.plugins.telescope")
+require("common.plugins.trouble")
+require("common.plugins.autopairs")
+

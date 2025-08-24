@@ -1,0 +1,23 @@
+require("rust.plugins.init")
+require("common.core.options")
+require("rust.core.options")
+require("common.core.keymaps")
+require("rust.core.keymaps")
+require("common.core.colorscheme")
+require("common.plugins.undotree")
+require("common.plugins.treesitter")({
+  "rust",
+  "json",
+  "csv",
+  "yaml"
+})
+require("common.plugins.lspconfig")({
+  "yamlls",
+  "jsonls",
+  "gopls",
+  "rust_analyzer",
+})
+require("common.plugins.telescope")
+require("common.plugins.trouble")
+require("common.plugins.autopairs")
+

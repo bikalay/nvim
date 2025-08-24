@@ -1,5 +1,5 @@
 local opt = vim.opt;
-local g = vim.g;
+-- local g = vim.g;
 local o = vim.o;
 
 o.termguicolors = true

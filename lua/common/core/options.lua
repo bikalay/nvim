@@ -20,6 +20,13 @@ opt.colorcolumn = "80"
 opt.background = "dark"
 opt.cursorline = true
 
+opt.guicursor = table.concat({
+  "n-v-c-sm:block",
+  "i-ci-ve:ver25",
+  "r-cr-o:hor20",
+  "t:ver25",          -- bar in terminal-job mode
+}, ",")
+
 -- spell check
 opt.spell = true
 opt.spelloptions = "camel"
